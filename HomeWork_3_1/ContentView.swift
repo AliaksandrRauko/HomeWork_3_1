@@ -33,7 +33,7 @@ struct ContentView: View {
                     
                     Text(name)
                         .font(.title)
-                        .controlSize(.large)
+                        .padding()
                         .foregroundColor(.white)
                         .background(.blue)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
