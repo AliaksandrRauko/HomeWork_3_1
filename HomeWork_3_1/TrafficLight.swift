@@ -9,31 +9,21 @@ import SwiftUI
 
 struct TrafficLight: View {
     
-    let activeColor: CurrentLight
+    let alghaRed: Double
+    let alghaYellow: Double
+    let alghaGreen: Double
     
     var body: some View {
         VStack{
-            if activeColor == .red {
-                ColorCircle(color: .red, alpha: 1)
-            } else {
-                ColorCircle(color: .red, alpha: 0.2)
-            }
-            if activeColor == .yellow {
-                ColorCircle(color: .yellow, alpha: 1)
-            } else {
-                ColorCircle(color: .yellow, alpha: 0.2)
-            }
-            if activeColor == .green {
-                ColorCircle(color: .green, alpha: 1)
-            } else {
-                ColorCircle(color: .green, alpha: 0.2)
-            }            
+            ColorCircle(color: .red, algha: alghaRed)
+            ColorCircle(color: .yellow, algha: alghaYellow)
+            ColorCircle(color: .green, algha: alghaGreen)
         }
     }
 }
 
 struct TrafficLight_Previews: PreviewProvider {
     static var previews: some View {
-        TrafficLight(activeColor: .red)
+        TrafficLight(alghaRed: 0.2, alghaYellow: 0.2, alghaGreen: 0.2)
     }
 }
