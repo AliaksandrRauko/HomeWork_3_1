@@ -8,40 +8,30 @@
 import SwiftUI
 
 enum CurrentLight {
-    case red, yellow, green
+    case red, yellow, green, black
 }
-
 
 struct ContentView: View {
     
-    @State private var currentLight = CurrentLight.red
-    let colors = [Color.red, Color.green, Color.green]
+    @State private var trafficLight = TrafficLight(activeColor: .black)
+    @State private var currentLight: CurrentLight = .black
     
     var body: some View {
         ZStack{
             LinearGradient(gradient: Gradient(colors: [.purple, .white]), startPoint: .topLeading, endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(.all)
             VStack {
-                ColorCircle(color: .red)
-                    .padding()
-                ColorCircle(color: .yellow)
-                    .padding()
-                ColorCircle(color: .green)
-                    .padding()
+                trafficLight
                 Spacer()
                 
                 Button(action: {
-                    switch currentLight {
-                    case .red:
-                        currentLight = .yellow
-                        
-                    case .yellow:
-                        currentLight = .green
-                    case .green:
-                        currentLight = .red
-                    }
+                    changeLight()
                 }) {
-                    Text("START")
+                    let name = currentLight == .black
+                    ? "START"
+                    : "NEXT"
+                    
+                    Text(name)
                         .font(.title)
                         .controlSize(.large)
                         .foregroundColor(.white)
@@ -55,6 +45,26 @@ struct ContentView: View {
     
 }
 
+extension ContentView {
+    
+    private func changeLight() {
+        switch currentLight {
+        case .red:
+            self.trafficLight = TrafficLight(activeColor: .red)
+            currentLight = .yellow
+        case .yellow:
+            self.trafficLight = TrafficLight(activeColor: .yellow)
+            currentLight = .green
+        case .green:
+            self.trafficLight = TrafficLight(activeColor: .green)
+            currentLight = .red
+        case .black:
+            self.trafficLight = TrafficLight(activeColor: .red)
+            currentLight = .yellow
+        }
+    }
+
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
